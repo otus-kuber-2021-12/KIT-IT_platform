@@ -7,7 +7,7 @@ metadata:
 spec: # Описание Pod
   containers: # Описание контейнеров внутри Pod
   - name: web # Название контейнера
-    image: kitit/nginx-web-test # Образ из которого создается контейнер
+    image: kitit/nginx-web:v.0.0.1 # Образ из которого создается контейнер
     volumeMounts:
     - name: app
       mountPath: /app
