@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: paymentservice
+  template:
+    metadata:
+      labels:
+        app: paymentservice
+    spec:
+      containers:
+      - name: server
+        image: kitit/hipstershop:v.0.0.1
+        env:
+        - name: PRODUCT_CATALOG_SERVICE_ADDR
+          value: "app"
+        - name: CURRENCY_SERVICE_ADDR
+          value: "app"
+        - name: CART_SERVICE_ADDR
+          value: "app"
+        - name: RECOMMENDATION_SERVICE_ADDR
+          value: "app"
+        - name: CHECKOUT_SERVICE_ADDR
+          value: "app"
+        - name: SHIPPING_SERVICE_ADDR
+          value: "app"
+        - name: AD_SERVICE_ADDR
+          value: "app"

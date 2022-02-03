@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: frontend
+  name: frontend
+spec:
+  containers:
+  - image: kitit/hipstershop
+    name: frontend
+    resources: {}
+    env:
+    - name: PRODUCT_CATALOG_SERVICE_ADDR
+      value: "app"
+    - name: CURRENCY_SERVICE_ADDR
+      value: "app"
+    - name: CART_SERVICE_ADDR
+      value: "app"
+    - name: RECOMMENDATION_SERVICE_ADDR
+      value: "app"
+    - name: CHECKOUT_SERVICE_ADDR
+      value: "app"
+    - name: SHIPPING_SERVICE_ADDR
+      value: "app"
+    - name: AD_SERVICE_ADDR
+      value: "app"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+
