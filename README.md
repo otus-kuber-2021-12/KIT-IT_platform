@@ -83,3 +83,61 @@
 
 ## PR checklist:
   - [X] Выставлен label с темой домашнего задания
+
+
+# Выполнено ДЗ № 4
+
+  - [X] Основное ДЗ
+  - [X] Задание со *
+
+## В процессе сделано:
+  - kubectl apply -f web-deploy.yaml
+  - kubectl delete pod/web --grace-period=0 --force
+  - kubectl describe deployment web
+  - создадим манифест для нашего сервиса в папке kubernetesnetworks. Файл web-svc-cip.yaml
+    kubectl apply -f web-svc-cip.yaml
+  - minikube ssh
+    iptables --list -nv -t nat
+  - Измените значение mode с пустого на ipvs и добавьте параметр strictARP: true и сохраните изменения
+    kubectl edit configmap -n kube-system kube-proxy
+    apiVersion: kubeproxy.config.k8s.io/v1alpha1
+    kind: KubeProxyConfiguration
+    mode: "ipvs"
+    ipvs:
+      strictARP: true
+  - Теперь удалим Pod с kube-proxy , чтобы применить новую конфигурацию (он входит в DaemonSet и будет запущен автоматически)
+    kubectl --namespace kube-system delete pod --selector='k8s-app=kube-proxy'
+  - minikube ssh
+    iptables --list -nv -t nat
+    sudo touch /tmp/iptables.cleanup
+    ---
+    *nat
+    -A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+    COMMIT
+    *filter
+    COMMIT
+    *mangle
+    COMMIT
+    ---
+    sudo iptables-restore /tmp/iptables.cleanup
+    iptables --list -nv -t nat
+  - toolbox not faund - в целом, конечно, задумка совершена по очистке. Судя по ip addr show kube-ipvs0.
+  - kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
+    kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+  - touch metallb-config.yaml
+    inet 192.168.49.2/24 brd 192.168.49.255 scope global eth0
+    sudo route add 172.17.255.0/24 192.168.49.2
+  - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
+    kubectl get service -n ingress-nginx
+    curl -vvvk http://172.17.255.2:80  
+  - 
+
+## Как запустить проект:
+  - 
+
+## Как проверить работоспособность:
+  - Перейти по ссылке http://localhost:8080
+
+## PR checklist:
+  - [X] Выставлен label с темой домашнего задания
