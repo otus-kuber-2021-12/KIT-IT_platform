@@ -141,3 +141,36 @@
 
 ## PR checklist:
   - [X] Выставлен label с темой домашнего задания
+
+# Выполнено ДЗ № 5 kubernetes-volumes
+
+  - [X] Основное ДЗ
+  - [X] Задание со *
+
+## В процессе сделано:
+  - kind create cluster  
+  - kubectl cluster-info --context kind-kind
+  - export KUBECONFIG="$(kind get kubeconfig --name="kind")"
+    kubeconfig-path - нет такого.
+  - kubectl apply -f https://raw.githubusercontent.com/express42/otus-platform-snippets/master/Module-02/Kuberenetes-volumes/minio-statefulset.yaml
+  - kubectl apply -f https://raw.githubusercontent.com/express42/otus-platform-snippets/master/Module-02/Kuberenetes-volumes/minio-headless-service.yaml
+  - kubectl get statefulsets
+    kubectl get pods
+    kubectl get pvc
+    kubectl get pv
+    kubectl describe <resource> <resource_name>
+  - Задание с *
+    Добавили kind: Secret и указали в манифесте секреты и значения к ним.
+    secret/minio-secret created
+    statefulset.apps/minio configured
+  - kind delete cluster
+    Deleting cluster "kind" ...
+
+## Как запустить проект:
+  - Задеплоить манифесты
+
+## Как проверить работоспособность:
+  - Задеплоить манифесты и проверить через запросы состояния
+
+## PR checklist:
+  - [X] Выставлен label с темой домашнего задания
