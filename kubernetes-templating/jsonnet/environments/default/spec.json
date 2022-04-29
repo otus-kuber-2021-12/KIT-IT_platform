@@ -1,0 +1,13 @@
+{
+    "apiVersion": "tanka.dev/v1alpha1",
+    "kind": "Environment",
+    "metadata": {
+      "name": "environments/default"
+    },
+    "spec": {
+      "apiServer": "https://35.187.57.25",
+      "namespace": "hipster-shop",
+      "resourceDefaults": {},
+      "expectVersions": {}
+    }
+  }
