@@ -352,3 +352,41 @@
 
 ## PR checklist:
   - [X] Выставлен label с темой домашнего задания
+
+ Выполнено ДЗ № 6 kubernetes-operators
+
+  - [X] Основное ДЗ
+  - [X] Задание со *
+
+## В процессе сделано:
+  - minikube start
+  - kubectl apply -f deploy/crd.yml
+  - kubectl apply -f deploy/cr.yml
+  - kubectl get crd
+    NAME                   CREATED AT
+    mysqls.otus.homework   2023-02-01T19:02:23Z
+  - kubectl get mysqls.otus.homework
+    NAME             AGE
+    mysql-instance   3m
+  - kubectl delete mysqls.otus.homework mysql-instance
+  - {11:33PM}docker@localhost:~/OTUS/GIT/KIT-IT_platform/kubernetes-operators/deploy@kubernetes-operators✗✗ > kubectl get jobs
+    NAME                         COMPLETIONS   DURATION   AGE
+    backup-mysql-instance-job    1/1           0s         2m46s
+    restore-mysql-instance-job   1/1           41s        97s
+  - {11:34PM}docker@localhost:~/OTUS/GIT/KIT-IT_platform/kubernetes-operators/deploy@kubernetes-operators✗✗ > export MYSQLPOD=$(kubectl get pods -l app=mysql-instance -o jsonpath="{.items[*].metadata.name}")
+    kubectl exec -it $MYSQLPOD -- mysql -potuspassword -e "select * from test;" otus-database
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    +----+-------------+
+    | id | name        |
+    +----+-------------+
+    |  1 | some data   |
+    |  2 | some data-2 |
+
+## Как запустить проект:
+  - Задеплоить манифесты
+
+## Как проверить работоспособность:
+  - Задеплоить манифесты и проверить через запросы состояния
+
+## PR checklist:
+  - [X] Выставлен label с темой домашнего задания
